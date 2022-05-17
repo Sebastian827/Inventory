@@ -1,14 +1,10 @@
-const { Schema, model } = require("mongoose");
+const {Schema, model}= require('mongoose');
 
-const UserSchema = Schema({
+
+const EquipmentTypeSchema = Schema({
     nombre:{
-        type:String,
-        required: true
-    },
-    email:{
         type: String,
-        required: true,
-        unique: true,
+        require: true
     },
     estado:{
         type:String,
@@ -17,6 +13,7 @@ const UserSchema = Schema({
             'Activo',
             'Inactivo'
         ]
+
     },
     creationDate:{
         type:Date,
@@ -26,8 +23,7 @@ const UserSchema = Schema({
         type:Date,
         required:true
     }
-
-
 });
 
-module.exports =model('User',UserSchema)
+
+module.exports = model('EquipmentType',EquipmentTypeSchema);
