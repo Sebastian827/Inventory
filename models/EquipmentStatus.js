@@ -2,27 +2,28 @@ const {Schema, model} = require('mongoose');
 
 
 const EquipmentStatusSchema = Schema({
-    nombre:{
+    name:{
         type: String,
-        require: true
+        require: true,
+        unique: true
     },
-    estado:{
+    state:{
         type:String,
         required:true,
         enum:[
-            'Activo',
-            'Inactivo'
+            'Active',
+            'Inactive'
         ]
 
     },
-    BuyDate:{
+    creationDate:{
         type:Date,
         required:true
     },
-    Color:{
-        type:String,
+    updateDate:{
+        type:Date,
         required:true
-    },
+    }
     
 
     

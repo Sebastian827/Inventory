@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const UserSchema = Schema({
-    nombre:{
+    name:{
         type:String,
         required: true
     },
@@ -10,12 +10,12 @@ const UserSchema = Schema({
         required: true,
         unique: true,
     },
-    estado:{
+    state:{
         type:String,
         required:true,
         enum:[
-            'Activo',
-            'Inactivo'
+            'Active',
+            'Inactive'
         ]
     },
     creationDate:{

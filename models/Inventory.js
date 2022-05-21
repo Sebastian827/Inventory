@@ -11,18 +11,15 @@ const InventorySchema = Schema({
     },
     Modelo:{
         type:String,
-        required: true,
-        unique: true
+        required: true
     },
     Descripcion:{
         type:String,
-        required: true,
-        unique: true
+        required: true
     },
     Foto:{
         type:String,
-        required: true,
-        unique: true
+        required: true
     },
     Price:{
         type:Number,

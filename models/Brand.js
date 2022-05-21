@@ -1,16 +1,18 @@
 const {Schema, model } = require('mongoose');
 
 const BrandSchema =Schema({
-    nombre:{
+    name:{
         type: String,
-        require: true
+        require: true,
+        unique: true
+        
     },
-    estado:{
+    state:{
         type:String,
         required:true,
         enum:[
-            'Activo',
-            'Inactivo'
+            'Active',
+            'Inactive'
         ]
 
     },

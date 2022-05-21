@@ -2,16 +2,16 @@ const {Schema, model}= require('mongoose');
 
 
 const EquipmentTypeSchema = Schema({
-    nombre:{
+    name:{
         type: String,
         require: true
     },
-    estado:{
+    state:{
         type:String,
         required:true,
         enum:[
-            'Activo',
-            'Inactivo'
+            'Active',
+            'Inactive'
         ]
 
     },

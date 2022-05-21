@@ -5,11 +5,15 @@ const port = 3000
 
 getConnection();
 
+//Parseo Json
 
+app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-  })
+app.use('/user',require('./router/user'));
+app.use('/brand',require('./router/brand'));
+app.use('/equipmentStatus',require('./router/equipmentStatus'));
+app.use('/equipmenttype',require('./router/equipmentType'));
+app.use('/inventory',require('./router/inventory'));
   
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
