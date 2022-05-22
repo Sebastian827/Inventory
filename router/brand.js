@@ -1,15 +1,20 @@
 const {Router} = require('express');
 const Brand = require('../models/Brand');
 const router = Router();
+const {validatorBrandEquipments} = require('../helpers/validator-brand-equipments');
 
 
 router.post('/', async function(req,res){
     try{
+        const validator =  validatorBrandEquipments(req);
+       if(validator.length>0){
+           return res.status(400).send(validator);
+       }
         let brand = new Brand();
 
         const existBrand = await Brand.findOne({name: req.body.name});
         if(existBrand){
-            return res.send("Marca ya existente");
+            return res.status(400).send("Marca ya existente");
         }
 
         brand.name = req.body.name;
@@ -20,7 +25,7 @@ router.post('/', async function(req,res){
         brand = await brand.save();
         res.send(brand);
     }catch(error){
-        res.send("Ha ocurrido un error");
+        res.status(500).send("Ha ocurrido un error");
         console.log(error);
     }
 
@@ -32,17 +37,21 @@ router.get('/', async function(req,res){
 
     }catch(error){
         console.log(error);
-        res.send("Ha ocurrido un error");
+        res.status(500).send("Ha ocurrido un error");
     }
 
 });
 router.put('/:idBrand', async function(req,res){
     try{
+        const validator =  await validatorBrandEquipments(req);
+       if(validator.length>0){
+           return res.status(400).send(validator);
+       }
         let brand = await Brand.findById(req.params.idBrand);
        
 
         if(!brand){
-            res.send("Marca no encontrada");
+            res.status(400).send("Marca no encontrada");
         };
 
         brand.name = req.body.name;
@@ -56,7 +65,7 @@ router.put('/:idBrand', async function(req,res){
 
     }catch(error){
         console.log(error);
-        res.send("Ha ocurrido un error");
+        res.status(500).send("Ha ocurrido un error");
     }
 
 });

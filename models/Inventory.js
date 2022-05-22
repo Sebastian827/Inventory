@@ -4,43 +4,43 @@ const {Schema, model} = require('mongoose');
 
 const InventorySchema = Schema({
 
-    Serial:{
+    serial:{
         type:String,
         required: true,
         unique: true
     },
-    Modelo:{
+    model:{
         type:String,
         required: true
     },
-    Descripcion:{
+    description:{
         type:String,
         required: true
     },
-    Foto:{
+    image:{
         type:String,
         required: true
     },
-    Price:{
+    price:{
         type:Number,
         required:true
     },
-    User:{
+    user:{
         type: Schema.Types.ObjectId,
          ref: 'User',
          required: false
     },
-    Brand:{
+    brand:{
         type: Schema.Types.ObjectId,
         ref: 'Brand',
         required: true
     },
-    EquipmentStatus:{
+    equipmentStatus:{
         type: Schema.Types.ObjectId,
         ref: 'EquipmentStatus',
         required: true
     },
-    EquipmentType:{
+    equipmentType:{
         type: Schema.Types.ObjectId,
         ref:'EquipmentType',
         required:true

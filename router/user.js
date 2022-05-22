@@ -1,18 +1,25 @@
 const {Router} = require('express');
 const User = require('../models/User');
+const {validatorUser} = require('../helpers/validator-user');
 
 const router = Router();
 
 router.post('/',async function  (req,res){
    
     try{
+        const validator = validatorUser(req);
+       if(validator.length>0){
+           return res.status(400).send(validator);
+
+
+       }
         console.log('Objeto recibico',req.body);
         let user = new User();
 
         const emailExists = await User.findOne({email : req.body.email });
         console.log(emailExists);
         if (emailExists){
-            return res.send("Email ya existe");
+            return res.status(400).send("Email ya existe");
             
         }
 
@@ -24,7 +31,8 @@ router.post('/',async function  (req,res){
         user = await user.save();
         res.send(user);
     }catch (error){
-        res.send('ocurrio un error');
+        res.status(500).send('ocurrio un error');
+        console.log(error);
     }
     
 });
@@ -33,36 +41,50 @@ router.get('/',async function(req,res){
     try{
         const user = await User.find();
         res.send(user);
+        
 
     }catch(error){
         console.log(error);
-        res.send("Ha ocurrido un error");
+        res.status(500).send("Ha ocurrido un error");
     }
 
 });
 
-router.get('/byemail',async function(req,res){
+
+router.put('/:userId',async function(req,res){
     try{
-        const userExist = await User.findOne({email : req.body.email });
-        console.log(userExist);
-
-        res.send(userExist);
-
+        const validator = validatorUser(req);
+       if(validator.length>0){
+           return res.status(400).send(validator);
 
 
-    }catch (error){
+       }
+        let user = await User.findById(req.params.userId);
+        if(!user){
+           return  res.status(400).send("No se encontró un usuario con ese id");
+        };
+
+        const emailVerify = await User.findOne({email: req.body.email,_id: user._id});
+        if(!emailVerify){
+           return  res.status(400).send("El correo está siendo utilizado por otro usuario");
+        }
+        user.name = req.body.name;
+        user.email= req.body.email;
+        user.state= req.body.state;
+        user.updateDate= new Date();
+        user = await user.save();
+        res.send(user);
+
+
+    
+
+    }catch(error){
         console.log(error);
-        res.send("Ha ocurrido un error");
-    }
-})
-router.put('/',function(req,res){
-    res.send('inicio');
+        res.status(500).send("Ha ocurrido un error");
+        }
 
 });
-router.delete('/',function(req,res){
-    res.send('inicio');
 
-});
 
 
 module.exports= router;
