@@ -1,8 +1,12 @@
 const {getConnection} = require('./db/db-connection-mongo');
 const express = require('express')
+const cors = require('cors');
 const app = express()
+
 const port = 3000
 
+
+app.use(cors());
 getConnection();
 
 //Parseo Json
