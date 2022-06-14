@@ -74,6 +74,19 @@ router.put('/:equipmentTypeId',async function(req,res){
     
 
 });
+router.get('/:equipmentTypeId', async function(req, res){
+    try{
+        const types = await EquipmentType.findById(req.params.equipmentTypeId);
+
+        if(!types){
+            return res.status(404).send('Ha ocurrido un erro');
+        };
+        res.send(types);
+
+    }catch(error){
+        console.log(error)
+    }
+} )
 
 
 

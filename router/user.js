@@ -65,7 +65,7 @@ router.put('/:userId',async function(req,res){
         };
 
         const emailVerify = await User.findOne({email: req.body.email,_id: user._id});
-        if(!emailVerify){
+        if(emailVerify){
            return  res.status(400).send("El correo está siendo utilizado por otro usuario");
         }
         user.name = req.body.name;
@@ -84,6 +84,19 @@ router.put('/:userId',async function(req,res){
         }
 
 });
+router.get('/:userId', async function(req, res){
+    try{
+        const userr = await User.findById(req.params.userId);
+
+        if(!userr){
+            return res.status(404).send('Ha ocurrido un erro');
+        };
+        res.send(userr);
+
+    }catch(error){
+        console.log(error)
+    }
+} )
 
 
 

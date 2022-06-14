@@ -109,6 +109,20 @@ router.put('/:inventoryId', async function (req, res) {
 
 });
 
+router.get('/:inventoryId', async function(req, res){
+    try{
+        const inventor = await Inventory.findById(req.params.inventoryId);
+
+        if(!inventor){
+            return res.status(404).send('Ha ocurrido un erro');
+        };
+        res.send(inventor);
+
+    }catch(error){
+        console.log(error)
+    }
+} )
+
 
 
 module.exports = router;

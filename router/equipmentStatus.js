@@ -77,6 +77,18 @@ router.put('/:equipmentStatusId',async function(req,res){
     }
 
 });
+router.get('/:equipmentStatusId', async function(req, res){
+    try{
+        const statuss = await EquipmentStatus.findById(req.params.equipmentStatusId);
 
+        if(!statuss){
+            return res.status(404).send('Ha ocurrido un erro');
+        };
+        res.send(statuss);
+
+    }catch(error){
+        console.log(error)
+    }
+} )
 
 module.exports= router;

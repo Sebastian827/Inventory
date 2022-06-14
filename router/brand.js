@@ -69,6 +69,19 @@ router.put('/:idBrand', async function(req,res){
     }
 
 });
+router.get('/:brandId', async function(req, res){
+    try{
+        const brandi = await Brand.findById(req.params.brandId);
+
+        if(!brandi){
+            return res.status(404).send('Ha ocurrido un erro');
+        };
+        res.send(brandi);
+
+    }catch(error){
+        console.log(error)
+    }
+} )
 
 
 
