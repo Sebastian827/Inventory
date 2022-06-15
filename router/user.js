@@ -64,7 +64,7 @@ router.put('/:userId',async function(req,res){
            return  res.status(400).send("No se encontró un usuario con ese id");
         };
 
-        const emailVerify = await User.findOne({email: req.body.email,_id: user._id});
+        const emailVerify = await User.findOne({email: req.body.email, _id:{ $ne: user._id}});
         if(emailVerify){
            return  res.status(400).send("El correo está siendo utilizado por otro usuario");
         }
